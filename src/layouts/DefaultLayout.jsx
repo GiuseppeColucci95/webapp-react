@@ -8,7 +8,7 @@ export default function DefaultLayout() {
   return (
     <>
       <Header></Header>
-      <main className="my-5">
+      <main>
         <Outlet></Outlet>
       </main>
       <Footer></Footer>
