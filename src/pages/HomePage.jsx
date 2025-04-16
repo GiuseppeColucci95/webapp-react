@@ -6,6 +6,7 @@ export default function HomePage() {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     fetch('http://localhost:3000/api/v1/movies')
       .then(res => res.json())
       .then(data => {

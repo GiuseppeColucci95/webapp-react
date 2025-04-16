@@ -10,6 +10,7 @@ export default function MovieDetails() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     fetch('http://localhost:3000/api/v1/movies/' + id)
       .then(res => res.json())
       .then(data => {
