@@ -7,10 +7,15 @@ export default function MovieDetails() {
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
 
+  window.scroll({
+    top: 0,
+    left: 0,
+    behavior: "instant",
+  });
+
   const navigate = useNavigate();
 
   useEffect(() => {
-    window.scrollTo(0, 0);
     fetch('http://localhost:3000/api/v1/movies/' + id)
       .then(res => res.json())
       .then(data => {

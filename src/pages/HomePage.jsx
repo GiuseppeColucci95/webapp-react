@@ -4,9 +4,13 @@ import MovieCard from "../components/MovieCard";
 export default function HomePage() {
 
   const [movies, setMovies] = useState([]);
-
+  window.scroll({
+    top: 0,
+    left: 0,
+    behavior: "instant",
+  });
   useEffect(() => {
-    window.scrollTo(0, 0);
+
     fetch('http://localhost:3000/api/v1/movies')
       .then(res => res.json())
       .then(data => {
