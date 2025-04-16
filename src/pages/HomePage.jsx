@@ -17,7 +17,7 @@ export default function HomePage() {
 
   return (
     <>
-      <div className="container">
+      <div className="container my-5">
 
         <h1 className="mb-3">MOVIES LIST</h1>
 
