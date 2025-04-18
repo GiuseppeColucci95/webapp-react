@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
+import { useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import MovieReviewCard from "../components/MovieReviewCard";
 import ReviewForm from "../components/ReviewForm";
+import LoaderContext from "../contexts/loaderContext";
 
 export default function MovieDetails() {
 
@@ -9,6 +11,7 @@ export default function MovieDetails() {
   const navigate = useNavigate();
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
+  const { setIsLoading } = useContext(LoaderContext);
 
   //useEffect at start of the component
   useEffect(() => {
@@ -17,7 +20,10 @@ export default function MovieDetails() {
       .then(data => {
         if (data.title) setMovie(data);
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log(err))
+      .finally(() => {
+        setIsLoading(false);
+      })
   }, [id]);
 
   //template

@@ -1,10 +1,13 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import MovieCard from "../components/MovieCard";
+import LoaderContext from "../contexts/loaderContext";
 
 export default function HomePage() {
 
   const [movies, setMovies] = useState([]);
   const api_url = 'http://localhost:3000/api/v1/movies';
+
+  const { setIsLoading } = useContext(LoaderContext);
 
   useEffect(() => {
 
@@ -13,8 +16,12 @@ export default function HomePage() {
       .then(data => {
         console.log(data);
         setMovies(data);
+
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log(err))
+      .finally(() => {
+        setIsLoading(false);
+      })
   }, []);
 
   return (

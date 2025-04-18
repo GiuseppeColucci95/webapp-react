@@ -58,7 +58,7 @@ export default function ReviewForm({ movieId }) {
 
           setTimeout(() => {
             navigate(0);
-          }, 2000);
+          }, 1000);
         }
       })
       .catch(err => {
