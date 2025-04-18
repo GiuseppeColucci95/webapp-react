@@ -4,10 +4,11 @@ import MovieCard from "../components/MovieCard";
 export default function HomePage() {
 
   const [movies, setMovies] = useState([]);
+  const api_url = 'http://localhost:3000/api/v1/movies';
 
   useEffect(() => {
 
-    fetch('http://localhost:3000/api/v1/movies')
+    fetch(api_url)
       .then(res => res.json())
       .then(data => {
         console.log(data);

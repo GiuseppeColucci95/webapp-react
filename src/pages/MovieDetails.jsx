@@ -1,18 +1,16 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import MovieReviewCard from "../components/MovieReviewCard";
+import ReviewForm from "../components/ReviewForm";
 
 export default function MovieDetails() {
 
+  //variables
   const navigate = useNavigate();
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
-  const [formData, setFormData] = useState({
-    name: "",
-    vote: "",
-    review: ""
-  });
 
+  //useEffect at start of the component
   useEffect(() => {
     fetch('http://localhost:3000/api/v1/movies/' + id)
       .then(res => res.json())
@@ -23,16 +21,7 @@ export default function MovieDetails() {
       .catch(err => { console.log(err) });
   }, []);
 
-  function handleChange(e) {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  }
-
-  function handleSubmit(e) {
-    e.preventDefault();
-
-    console.log(formData);
-  }
-
+  //template
   return (
     <>
       {/* JUMBOTRON */}
@@ -68,63 +57,7 @@ export default function MovieDetails() {
       }
 
       {/* FORM */}
-      <div className="container mt-5">
-        <div className="card p-5">
-          <h3 className="text-center pb-3">INSERT YOUR REVIEW HERE</h3>
-
-          <form onSubmit={handleSubmit}>
-            <div className="d-flex align-items-center justify-content-between gap-3">
-              <div className="mb-3 w-50">
-                <label htmlFor="name" className="form-label">Name</label>
-                <input
-                  value={formData.name}
-                  onChange={handleChange}
-                  type="text"
-                  name="name"
-                  id="name"
-                  className="form-control"
-                  placeholder="Insert your name here..."
-                  aria-describedby="helpId"
-                />
-              </div>
-
-              <div className="mb-3 w-50">
-                <label htmlFor="vote" className="form-label">Vote</label>
-                <input
-                  value={formData.vote}
-                  onChange={handleChange}
-                  type="text"
-                  min='1'
-                  max='5'
-                  name="vote"
-                  id="vote"
-                  className="form-control"
-                  placeholder="Insert your vote from 1 to 5"
-                  aria-describedby="helpId"
-                />
-              </div>
-            </div>
-
-            <div className="mb-3">
-              <label htmlFor="review" className="form-label">Review</label>
-              <textarea
-                value={formData.review}
-                onChange={handleChange}
-                className="form-control"
-                name="review"
-                id="review"
-                rows="3"
-                placeholder="Insert your review here...">
-              </textarea>
-            </div>
-
-            <button type="submit" className="btn btn-primary">Submit</button>
-          </form>
-        </div>
-      </div>
-
-
-
+      <ReviewForm movieId={id}></ReviewForm>
 
       {/* REVIEWS LIST */}
       {
