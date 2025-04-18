@@ -15,11 +15,10 @@ export default function MovieDetails() {
     fetch('http://localhost:3000/api/v1/movies/' + id)
       .then(res => res.json())
       .then(data => {
-        console.log(data);
         if (data.title) setMovie(data);
       })
-      .catch(err => { console.log(err) });
-  }, []);
+      .catch(err => console.log(err));
+  }, [id]);
 
   //template
   return (
