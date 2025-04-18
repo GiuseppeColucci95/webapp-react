@@ -4,16 +4,14 @@ import MovieReviewCard from "../components/MovieReviewCard";
 
 export default function MovieDetails() {
 
+  const navigate = useNavigate();
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
-
-  window.scroll({
-    top: 0,
-    left: 0,
-    behavior: "instant",
+  const [formData, setFormData] = useState({
+    name: "",
+    vote: "",
+    review: ""
   });
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     fetch('http://localhost:3000/api/v1/movies/' + id)
@@ -24,6 +22,16 @@ export default function MovieDetails() {
       })
       .catch(err => { console.log(err) });
   }, []);
+
+  function handleChange(e) {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    console.log(formData);
+  }
 
   return (
     <>
@@ -58,6 +66,65 @@ export default function MovieDetails() {
           </div>
         )
       }
+
+      {/* FORM */}
+      <div className="container mt-5">
+        <div className="card p-5">
+          <h3 className="text-center pb-3">INSERT YOUR REVIEW HERE</h3>
+
+          <form onSubmit={handleSubmit}>
+            <div className="d-flex align-items-center justify-content-between gap-3">
+              <div className="mb-3 w-50">
+                <label htmlFor="name" className="form-label">Name</label>
+                <input
+                  value={formData.name}
+                  onChange={handleChange}
+                  type="text"
+                  name="name"
+                  id="name"
+                  className="form-control"
+                  placeholder="Insert your name here..."
+                  aria-describedby="helpId"
+                />
+              </div>
+
+              <div className="mb-3 w-50">
+                <label htmlFor="vote" className="form-label">Vote</label>
+                <input
+                  value={formData.vote}
+                  onChange={handleChange}
+                  type="text"
+                  min='1'
+                  max='5'
+                  name="vote"
+                  id="vote"
+                  className="form-control"
+                  placeholder="Insert your vote from 1 to 5"
+                  aria-describedby="helpId"
+                />
+              </div>
+            </div>
+
+            <div className="mb-3">
+              <label htmlFor="review" className="form-label">Review</label>
+              <textarea
+                value={formData.review}
+                onChange={handleChange}
+                className="form-control"
+                name="review"
+                id="review"
+                rows="3"
+                placeholder="Insert your review here...">
+              </textarea>
+            </div>
+
+            <button type="submit" className="btn btn-primary">Submit</button>
+          </form>
+        </div>
+      </div>
+
+
+
 
       {/* REVIEWS LIST */}
       {
